@@ -369,4 +369,57 @@ minikube stop
 
 ---
 
+## 🛠️ Quick Deploy Script: `deploy.sh`
+
+There's a helper script at `./deploy.sh` that automates the common workflow: build the Docker image, push it to Docker Hub, and apply the Kubernetes manifests.
+
+Why use `deploy.sh`?
+- Saves time by running build, push, and kubectl apply in one step.
+- Reduces copy-paste mistakes and ensures commands run in the correct order.
+
+What `deploy.sh` does (summary):
+- Builds image: `docker build -t kisanjena/kubernetes-api:latest .`
+- Pushes to Docker Hub: `docker push kisanjena/kubernetes-api:latest`
+- Applies K8s manifests: `kubectl apply -f k8s/deployment.yaml` and `kubectl apply -f k8s/service.yaml`
+- Shows pods and services after deploy.
+
+Before running the script
+- Make sure you're logged into Docker Hub:
+   ```bash
+   docker login
+   ```
+- Ensure `minikube` (or your Kubernetes cluster) is running and `kubectl` is configured:
+   ```bash
+   minikube start
+   kubectl cluster-info
+   ```
+
+How to run `deploy.sh`
+
+On macOS/Linux or Git Bash on Windows:
+```bash
+# Make it executable (only needed once)
+chmod +x deploy.sh
+
+# Run the script
+./deploy.sh
+```
+
+On Windows PowerShell (if you have WSL or Git Bash installed):
+```powershell
+# Using Git Bash or WSL is recommended for running shell scripts on Windows
+bash deploy.sh
+```
+
+Notes & alternatives
+- If you want to use Minikube's Docker daemon (avoid pushing to Docker Hub), run:
+   ```bash
+   # Use minikube's docker daemon
+   eval $(minikube -p minikube docker-env)
+   # Then build with the same tag and apply manifests (no push)
+   ./deploy.sh
+   ```
+- The script pushes `kisanjena/kubernetes-api:latest` to Docker Hub. If you want a different tag or registry, edit `deploy.sh` or export environment variables before running.
+
+
 **Ready to deploy? Start with Step 1! 🎯**
