@@ -411,6 +411,19 @@ On Windows PowerShell (if you have WSL or Git Bash installed):
 bash deploy.sh
 ```
 
+Run via npm
+
+If you prefer a single npm command, there's a shortcut in `package.json`:
+
+```bash
+npm run deploy
+```
+
+This runs the script `sh deploy.sh` (defined in `package.json`) and is useful if you or other contributors expect an npm-based workflow. Note:
+
+- On Windows PowerShell this still runs the shell script via `sh`, so you should have Git Bash or WSL available. If you want a native PowerShell flow, consider adding a `deploy.ps1` script.
+- Make sure you have run `docker login` (if pushing) and `minikube start` if using a local cluster before running `npm run deploy`.
+
 Notes & alternatives
 - If you want to use Minikube's Docker daemon (avoid pushing to Docker Hub), run:
    ```bash
