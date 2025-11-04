@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-api-service
+  labels:
+    app: kubernetes-api
+spec:
+  selector:
+    app: kubernetes-api
+  ports:
+    - protocol: TCP
+      port: 5173         # exposed port inside cluster
+      targetPort: 5173   # app port inside container
+  type: NodePort     # or ClusterIP for internal, NodePort for local testing

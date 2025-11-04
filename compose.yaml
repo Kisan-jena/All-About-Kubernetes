@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-api
+    ports:
+      - "5173:5173"
+    environment:
+      NODE_ENV: production
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev

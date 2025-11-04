@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-api
+  labels:
+    app: kubernetes-api
+spec:
+  replicas: 2                         # adjust as needed
+  selector:
+    matchLabels:
+      app: kubernetes-api
+  template:
+    metadata:
+      labels:
+        app: kubernetes-api
+    spec:
+      containers:
+        - name: kubernetes-api
+          image: kisanjena/kubernetes-api:latest  # <-- replace with your image
+          ports:
+            - containerPort: 5173
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5173
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 5173
+            initialDelaySeconds: 10
+            periodSeconds: 20
+      

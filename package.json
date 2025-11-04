@@ -1,0 +1,27 @@
+{
+  "name": "kubernetes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js",
+    "start": "node index.js" ,
+    "deploy": "sh deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kisan-jena/All-About-Kubernetes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Kisan-jena/All-About-Kubernetes/issues"
+  },
+  "homepage": "https://github.com/Kisan-jena/All-About-Kubernetes#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
